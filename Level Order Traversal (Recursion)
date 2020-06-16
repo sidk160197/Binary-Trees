@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.nio.Buffer;
+import java.util.*;
+import java.util.regex.Pattern;
+
+class Practise {
+    public static void main(String[] args) throws IOException {
+        Node root = null;
+        root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        printTree(root);
+    }
+
+    public static int height(Node node) {
+        if(node == null)
+            return 0;
+        else {
+            int lheight = height(node.left);
+            int rheight = height(node.right);
+            if(lheight>rheight)
+                return lheight+1;
+            return rheight+1;
+        }
+    }
+
+    public static void printTree(Node root) {
+        int h = height(root);
+        for(int i=1; i<=h; i++)
+            print(root, i);
+    }
+
+    public static void print(Node node, int level) {
+        if(node==null)
+            return;
+        if(level==1)
+            System.out.print(node.data +" ");
+        else if(level>1) {
+            print(node.left, level-1);
+            print(node.right, level-1);
+        }
+    }
+}
+
+class Node {
+    int data;
+    Node left, right;
+    public Node(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
