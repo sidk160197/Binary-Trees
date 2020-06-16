@@ -1,0 +1,59 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.nio.Buffer;
+import java.util.*;
+import java.util.regex.Pattern;
+
+class Practise {
+    public static void main(String[] args) throws IOException {
+        Node root = null;
+        root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        int k = 12;
+        Queue<Node> queue = new LinkedList<>();
+        Node temp = root;
+        while(temp!=null) {
+//            System.out.print(temp.data +" ");
+            if(temp.left == null) {
+                temp.left = new Node(12);
+                break;
+            } else {
+                queue.add(temp.left);
+            }
+            if(temp.right == null) {
+                temp.right = new Node(12);
+                break;
+            } else {
+                queue.add(temp.right);
+            }
+            temp = queue.poll();
+        }
+
+        temp = root;
+        queue.clear();
+        while(temp!=null) {
+            System.out.print(temp.data +" ");
+            if(temp.left!=null)
+                queue.add(temp.left);
+            if(temp.right!=null)
+                queue.add(temp.right);
+            temp = queue.poll();
+        }
+
+    }
+}
+
+class Node {
+    int data;
+    Node left, right;
+    public Node(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
